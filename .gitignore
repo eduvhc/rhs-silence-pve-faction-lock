@@ -1,0 +1,8 @@
+# Workbench-generated resource index
+resourceDatabase.rdb
+
+# Local editor files
+.idea/
+.vscode/
+*.tmp
+*.bak

@@ -1,0 +1,25 @@
+GameProject {
+ ID "RHSSilencePvEFactionLock"
+ GUID "A8F0C9753A0F4D0FBB16400AE0F8A18D"
+ TITLE "RHS Silence PvE Faction Lock"
+ Dependencies {
+  "58D0FB3206B6F859"
+  "595F2BF2F44836FB"
+  "1337C0DE5DABBEEF"
+  "BADC0DEDABBEDA5E"
+ }
+ Configurations {
+  GameProjectConfig PC {
+  }
+  GameProjectConfig XBOX_ONE {
+  }
+  GameProjectConfig XBOX_SERIES {
+  }
+  GameProjectConfig PS4 {
+  }
+  GameProjectConfig PS5 {
+  }
+  GameProjectConfig HEADLESS {
+  }
+ }
+}
