@@ -1,6 +1,6 @@
 # Faction Availability Lock
 
-![Faction Availability Lock](Docs/assets/image.png)
+![Faction Availability Lock](Docs/Assets/image.png)
 
 A small, server-side faction availability control for Arma Reforger Conflict-style scenarios.
 
