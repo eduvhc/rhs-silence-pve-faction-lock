@@ -1,25 +1,25 @@
-//! Server-admin settings for the RHSFL faction lock.
-class RHSFL_FactionLockSettings
+//! Server-admin settings for Faction Availability Lock.
+class FAL_FactionLockSettings
 {
-	static const string DIRECTORY = "$profile:RHSFL_FactionLock";
-	static const string FILE_PATH = "$profile:RHSFL_FactionLock/settings.json";
+	static const string DIRECTORY = "$profile:FactionAvailabilityLock";
+	static const string FILE_PATH = "$profile:FactionAvailabilityLock/settings.json";
 
-	protected ref array<string> m_aDisabledFactions = {"RHS_AFRF", "FIA"};
+	protected ref array<string> m_aDisabledFactions = {};
 
 	//------------------------------------------------------------------------------------------------
-	//! Load settings from the server profile, or create a default file on first start.
-	void RHSFL_LoadOrCreate()
+	//! Load settings from the server profile, or create a safe empty default file.
+	void FAL_LoadOrCreate()
 	{
 		if (!FileIO.FileExists(FILE_PATH))
 		{
 			if (!FileIO.FileExists(DIRECTORY) && !FileIO.MakeDirectory(DIRECTORY))
 			{
-				Print("[RHSFL] Cannot create settings directory; using defaults", LogLevel.WARNING);
+				Print("[FactionAvailabilityLock] Cannot create settings directory; using defaults", LogLevel.WARNING);
 				return;
 			}
 
-			if (RHSFL_Save())
-				Print("[RHSFL] Wrote default settings to " + FILE_PATH);
+			if (FAL_Save())
+				Print("[FactionAvailabilityLock] Wrote default settings to " + FILE_PATH);
 
 			return;
 		}
@@ -27,7 +27,7 @@ class RHSFL_FactionLockSettings
 		JsonLoadContext context = new JsonLoadContext();
 		if (!context.LoadFromFile(FILE_PATH))
 		{
-			Print("[RHSFL] Invalid settings.json; using defaults", LogLevel.WARNING);
+			Print("[FactionAvailabilityLock] Invalid settings.json; using defaults", LogLevel.WARNING);
 			return;
 		}
 
@@ -35,12 +35,12 @@ class RHSFL_FactionLockSettings
 		if (!m_aDisabledFactions)
 			m_aDisabledFactions = {};
 
-		Print("[RHSFL] Loaded settings from " + FILE_PATH);
+		Print("[FactionAvailabilityLock] Loaded settings from " + FILE_PATH);
 	}
 
 	//------------------------------------------------------------------------------------------------
-	//! eturn True when the settings contain at least one faction key.
-	bool RHSFL_HasDisabledFactions()
+	//! Return true when the settings contain at least one faction key.
+	bool FAL_HasDisabledFactions()
 	{
 		return !m_aDisabledFactions.IsEmpty();
 	}
@@ -49,12 +49,12 @@ class RHSFL_FactionLockSettings
 	//! Disable each configured faction that exists and is currently playable.
 	//! \param factionManager The active scenario faction manager.
 	//! \return Number of factions whose availability changed.
-	int RHSFL_DisableConfiguredFactions(SCR_FactionManager factionManager)
+	int FAL_DisableConfiguredFactions(SCR_FactionManager factionManager)
 	{
 		int disabledCount = 0;
 		foreach (string factionKey : m_aDisabledFactions)
 		{
-			if (RHSFL_DisableFaction(factionManager, factionKey))
+			if (FAL_DisableFaction(factionManager, factionKey))
 				disabledCount++;
 		}
 
@@ -62,16 +62,16 @@ class RHSFL_FactionLockSettings
 	}
 
 	//------------------------------------------------------------------------------------------------
-	//! Write the default settings file.
+	//! Write the settings file.
 	//! \return True when the file was written successfully.
-	protected bool RHSFL_Save()
+	protected bool FAL_Save()
 	{
 		PrettyJsonSaveContext context = new PrettyJsonSaveContext();
 		context.WriteValue("disabledFactions", m_aDisabledFactions);
 		if (context.SaveToFile(FILE_PATH))
 			return true;
 
-		Print("[RHSFL] Failed to write " + FILE_PATH, LogLevel.WARNING);
+		Print("[FactionAvailabilityLock] Failed to write " + FILE_PATH, LogLevel.WARNING);
 		return false;
 	}
 
@@ -80,7 +80,7 @@ class RHSFL_FactionLockSettings
 	//! \param factionManager The active scenario faction manager.
 	//! \param factionKey Faction key to disable.
 	//! \return True when a playable faction was changed to non-playable.
-	protected bool RHSFL_DisableFaction(SCR_FactionManager factionManager, string factionKey)
+	protected bool FAL_DisableFaction(SCR_FactionManager factionManager, string factionKey)
 	{
 		if (factionKey.IsEmpty())
 			return false;
@@ -88,7 +88,7 @@ class RHSFL_FactionLockSettings
 		SCR_Faction faction = SCR_Faction.Cast(factionManager.GetFactionByKey(factionKey));
 		if (!faction)
 		{
-			PrintFormat("[RHSFL] Unknown faction key: %1", factionKey, level: LogLevel.WARNING);
+			PrintFormat("[FactionAvailabilityLock] Unknown faction key: %1", factionKey, level: LogLevel.WARNING);
 			return false;
 		}
 

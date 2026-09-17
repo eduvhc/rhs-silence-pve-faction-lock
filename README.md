@@ -1,42 +1,39 @@
-# RHS Silence PvE Faction Lock
+# Faction Availability Lock
 
-A small server-side addon for RHS Conflict scenarios in Arma Reforger.
+A small, server-side faction availability control for Arma Reforger Conflict-style scenarios.
 
-Use it when you want to keep particular factions AI-only. It hides those factions from the faction-selection and respawn menus, while leaving the scenario in charge of the faction players actually use.
-
-Out of the box, it disables `RHS_AFRF` and `FIA`. That makes it a useful fit for a US-focused RHS / Silence PvE server, without hard-coding USAF as the player faction.
+Use it when you want to keep specific factions AI-only. It hides those factions from faction-selection and respawn menus, while leaving the scenario in charge of the player faction.
 
 ## What you need
 
 - Arma Reforger
-- A scenario based on `SCR_GameModeCampaign` — compatible Silence PvE scenarios are included in that group
+- A scenario based on `SCR_GameModeCampaign`
 
-The addon has no direct RHS or Silence dependency: it only talks to the base-game Conflict API. To use the default RHS faction keys, your server scenario still needs RHS loaded independently. Silence PvE is likewise optional.
+The addon depends only on Arma Reforger's base Conflict API. It has no RHS, Silence PvE, or third-party mod dependency.
 
 ## Configuration
 
 On the first server start, the addon creates this file in the server profile:
 
 ```text
-$profile:RHSFL_FactionLock/settings.json
+$profile:FactionAvailabilityLock/settings.json
 ```
 
 Edit the list to choose which faction keys should be unavailable to players:
 
 ```json
 {
-  "disabledFactions": [
-    "RHS_AFRF",
-    "FIA"
-  ]
+  "disabledFactions": []
 }
 ```
 
-To keep the addon installed but make no changes, use an empty list:
+An empty list makes no changes. Add the faction keys used by your scenario to make them unavailable to players:
 
 ```json
 {
-  "disabledFactions": []
+  "disabledFactions": [
+    "FactionKeyToDisable"
+  ]
 }
 ```
 
@@ -56,8 +53,8 @@ All clients joining a server download the addon automatically. “Server-side”
 
 Open the project in Enfusion Workbench and run **Script Editor → Validate Scripts** (`F7`) before publishing changes.
 
-Test with the scenario you intend to host. Opening the raw RHS world by itself in Workbench is not a reliable test: it can be missing the campaign-base setup expected by Conflict.
+Test with the scenario you intend to host. A raw world opened on its own in Workbench can be missing the campaign-base setup expected by Conflict.
 
 ## License
 
-MIT. This project is independent and is not affiliated with Bohemia Interactive, RHS, or Silence PvE.
+[Arma Public License (APL)](https://www.bohemia.net/en/licenses/arma-public-license). This project is independent and is not affiliated with Bohemia Interactive or any third-party mod team.

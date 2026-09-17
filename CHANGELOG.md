@@ -2,6 +2,7 @@
 
 ## Unreleased
 
-- Added JSON settings for the server-profile faction lock.
-- Reworked the code with the `RHSFL_` prefix to reduce mod conflicts.
-- Removed unused RHS project dependencies.
+- Renamed the addon to Faction Availability Lock.
+- Removed RHS and Silence PvE defaults, naming, and documentation.
+- Added a safe empty default configuration.
+- Kept only the required Arma Reforger base-project dependency.
