@@ -39,6 +39,8 @@ An empty list makes no changes. Add the faction keys used by your scenario to ma
 
 Restart or reload the scenario after changing the file. The settings are read when the scenario starts. JSON does not support comments or trailing commas.
 
+For defensive safety, `disabledFactions` accepts up to 64 entries. More than 64 entries cause the configuration to be ignored rather than partially applied.
+
 ## What it changes
 
 Only faction availability. The configured factions become non-playable, so players cannot select or respawn as them.

@@ -3,6 +3,7 @@ class FAL_FactionLockSettings
 {
 	static const string DIRECTORY = "$profile:FactionAvailabilityLock";
 	static const string FILE_PATH = "$profile:FactionAvailabilityLock/settings.json";
+	static const int MAX_DISABLED_FACTIONS = 64;
 
 	protected ref array<string> m_aDisabledFactions = {};
 
@@ -34,6 +35,11 @@ class FAL_FactionLockSettings
 		context.ReadValue("disabledFactions", m_aDisabledFactions);
 		if (!m_aDisabledFactions)
 			m_aDisabledFactions = {};
+		else if (m_aDisabledFactions.Count() > MAX_DISABLED_FACTIONS)
+		{
+			PrintFormat("[FactionAvailabilityLock] disabledFactions exceeds the %1-entry limit; ignoring configuration", MAX_DISABLED_FACTIONS, level: LogLevel.WARNING);
+			m_aDisabledFactions = {};
+		}
 
 		Print("[FactionAvailabilityLock] Loaded settings from " + FILE_PATH);
 	}
