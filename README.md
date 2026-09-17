@@ -1,5 +1,7 @@
 # Faction Availability Lock
 
+![Faction Availability Lock](Docs/assets/image.png)
+
 A small, server-side faction availability control for Arma Reforger Conflict-style scenarios.
 
 Use it when you want to keep specific factions AI-only. It hides those factions from faction-selection and respawn menus, while leaving the scenario in charge of the player faction.
