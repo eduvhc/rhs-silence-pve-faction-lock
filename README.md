@@ -2,7 +2,7 @@
 
 Small server-side addon for Arma Reforger Conflict scenarios using RHS factions. It removes configured factions from the faction-selection and respawn menus.
 
-The default configuration keeps `RHS_USAF` playable and disables `RHS_AFRF` and `FIA`.
+The default configuration disables `RHS_AFRF` and `FIA`; it does not choose or enable a player faction.
 
 ## Requirements
 

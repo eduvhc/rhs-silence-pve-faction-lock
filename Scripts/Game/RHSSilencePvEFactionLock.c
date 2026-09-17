@@ -11,7 +11,7 @@ class RHSFactionLockSettings
 	{
 		if (!FileIO.FileExists(FILE_PATH))
 		{
-			if (!FileIO.MakeDirectory(DIRECTORY))
+			if (!FileIO.FileExists(DIRECTORY) && !FileIO.MakeDirectory(DIRECTORY))
 			{
 				Print("[RHS Faction Lock] Cannot create settings directory; defaults are being used", LogLevel.WARNING);
 				return;
