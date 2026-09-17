@@ -1,12 +1,9 @@
 GameProject {
  ID "RHSSilencePvEFactionLock"
- GUID "A8F0C9753A0F4D0FBB16400AE0F8A18D"
+ GUID "E839DA8A652ED429"
  TITLE "RHS Silence PvE Faction Lock"
  Dependencies {
   "58D0FB3206B6F859"
-  "595F2BF2F44836FB"
-  "1337C0DE5DABBEEF"
-  "BADC0DEDABBEDA5E"
  }
  Configurations {
   GameProjectConfig PC {

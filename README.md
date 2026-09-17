@@ -9,19 +9,16 @@ Out of the box, it disables `RHS_AFRF` and `FIA`. That makes it a useful fit for
 ## What you need
 
 - Arma Reforger
-- RHS - Status Quo
-- RHS - Content Pack 01
-- RHS - Content Pack 02
 - A scenario based on `SCR_GameModeCampaign` — compatible Silence PvE scenarios are included in that group
 
-Silence PvE is not a dependency. The addon does not call Silence APIs, so it can also be used with another compatible RHS Conflict scenario.
+The addon has no direct RHS or Silence dependency: it only talks to the base-game Conflict API. To use the default RHS faction keys, your server scenario still needs RHS loaded independently. Silence PvE is likewise optional.
 
 ## Configuration
 
 On the first server start, the addon creates this file in the server profile:
 
 ```text
-$profile:RHSSilencePvEFactionLock/settings.json
+$profile:RHSFL_FactionLock/settings.json
 ```
 
 Edit the list to choose which faction keys should be unavailable to players:
@@ -52,6 +49,8 @@ Only faction availability. The configured factions become non-playable, so playe
 It does not alter AI ownership, bases, objectives, loadouts, arsenals, or which faction the scenario treats as the player side. Those remain in the scenario configuration.
 
 The addon enables the Conflict faction manager's built-in runtime setting on the server, then uses the game API to apply the configured list. Keeping this behaviour in a small, open-source addon makes it easier to audit and adjust for a specific server.
+
+All clients joining a server download the addon automatically. “Server-side” here means that the faction-changing logic runs only on the server.
 
 ## Developing or testing
 
