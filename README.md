@@ -1,28 +1,30 @@
 # RHS Silence PvE Faction Lock
 
-Small server-side addon for Arma Reforger Conflict scenarios using RHS factions. It removes configured factions from the faction-selection and respawn menus.
+A small server-side addon for RHS Conflict scenarios in Arma Reforger.
 
-The default configuration disables `RHS_AFRF` and `FIA`; it does not choose or enable a player faction.
+Use it when you want to keep particular factions AI-only. It hides those factions from the faction-selection and respawn menus, while leaving the scenario in charge of the faction players actually use.
 
-## Requirements
+Out of the box, it disables `RHS_AFRF` and `FIA`. That makes it a useful fit for a US-focused RHS / Silence PvE server, without hard-coding USAF as the player faction.
+
+## What you need
 
 - Arma Reforger
 - RHS - Status Quo
 - RHS - Content Pack 01
 - RHS - Content Pack 02
-- A scenario derived from `SCR_GameModeCampaign` (including compatible Silence PvE scenarios)
+- A scenario based on `SCR_GameModeCampaign` — compatible Silence PvE scenarios are included in that group
 
-Silence PvE is not a declared dependency. This addon does not call Silence APIs.
+Silence PvE is not a dependency. The addon does not call Silence APIs, so it can also be used with another compatible RHS Conflict scenario.
 
 ## Configuration
 
-On its first server start, the addon creates:
+On the first server start, the addon creates this file in the server profile:
 
 ```text
 $profile:RHSSilencePvEFactionLock/settings.json
 ```
 
-Use the following format. JSON does not allow comments or trailing commas.
+Edit the list to choose which faction keys should be unavailable to players:
 
 ```json
 {
@@ -33,7 +35,7 @@ Use the following format. JSON does not allow comments or trailing commas.
 }
 ```
 
-Set `disabledFactions` to an empty array to make no faction changes:
+To keep the addon installed but make no changes, use an empty list:
 
 ```json
 {
@@ -41,17 +43,21 @@ Set `disabledFactions` to an empty array to make no faction changes:
 }
 ```
 
-Restart or reload the scenario after editing this file. The addon reads it at scenario start.
+Restart or reload the scenario after changing the file. The settings are read when the scenario starts. JSON does not support comments or trailing commas.
 
-## Behaviour and scope
+## What it changes
 
-The RHS Conflict scenario can disable runtime changes to faction playability. To apply the JSON configuration, this addon enables that built-in manager option on the server, then calls the game API to mark only the configured factions as non-playable. It does not choose or enable a player faction; that remains the scenario's responsibility.
+Only faction availability. The configured factions become non-playable, so players cannot select or respawn as them.
 
-This affects faction selection and respawn availability. It does not change AI ownership, base layouts, loadouts, arsenals, or mission objectives.
+It does not alter AI ownership, bases, objectives, loadouts, arsenals, or which faction the scenario treats as the player side. Those remain in the scenario configuration.
 
-## Development
+The addon enables the Conflict faction manager's built-in runtime setting on the server, then uses the game API to apply the configured list. Keeping this behaviour in a small, open-source addon makes it easier to audit and adjust for a specific server.
 
-Open the project in Enfusion Workbench and run **Script Editor → Validate Scripts** (`F7`) before publishing. Test on the intended server scenario; the standalone raw RHS world is not a reliable test environment because it can lack the campaign-base setup expected by Conflict.
+## Developing or testing
+
+Open the project in Enfusion Workbench and run **Script Editor → Validate Scripts** (`F7`) before publishing changes.
+
+Test with the scenario you intend to host. Opening the raw RHS world by itself in Workbench is not a reliable test: it can be missing the campaign-base setup expected by Conflict.
 
 ## License
 
